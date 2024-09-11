@@ -38,7 +38,7 @@
 I2C stands for Inter-Integrated-Circuit. It is a two wire interface asd compared to SPI which consist of four wires. Here one wore is to sending the clk signal and other wire is for send the data signal.It is a widely used protocol for short distance communication. Max range of I2C is (400KHz-100MHz).
 
 
-## <h2 id="header-1">Working of I2C protocol</h2>
+## <h2 id="header-2">Working of I2C protocol</h2>
 
 It uses only 2 bi-directional open-drain lines for data communication called SDA and SCL. Both these lines are pulled high.
 
@@ -57,7 +57,7 @@ Slave Address – 8 bit
 Acknowledge – 1 bit
 
 
-## <h3 id="header-1">Start and Stop Conditions</h3>
+## <h3 id="header-3">Start and Stop Conditions</h3>
 
 We need to send start signal and this signal(SDA) should go from high to low. while SCL should stay high. After sending start condition need to send adddress of peripheral which we wish to communicate the data. For write we need to apply 1 in address bus after 8-bit register. And to read we need to apply 0 in address bus after 8-bit register.
 
