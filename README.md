@@ -1,5 +1,4 @@
 # I2C-protocol
- # I2C-protocol
 ## CODE
 ```verilog
 module eeprom_top
