@@ -1,5 +1,83 @@
 # I2C-protocol
-## CODE
+
+# Contents 
+ <div class="toc">
+  <ul>
+    <li><a href="#header-1">Introduction to I2C Protocol</a></li>
+	</ul>
+</div>
+
+ <div class="toc">
+  <ul>
+    <li><a href="#header-2">Working of I2C protocol</a></li>
+	</ul>
+</div>
+
+<div class="toc">
+  <ul>
+    <li><a href="#header-3">Start and Stop Conditions</a></li>
+	</ul>
+</div>
+
+  
+<div class="toc">
+  <ul>
+    <li><a href="#header-4">I2C Packet format</a></li>
+	</ul>
+</div>
+
+<div class="toc">
+  <ul>
+    <li><a href="#header-5">Design code for I2C</a></li>
+	</ul>
+</div>
+
+
+## <h1 id="header-1">Introduction to I2C Protocol</h1>
+
+I2C stands for Inter-Integrated-Circuit. It is a two wire interface asd compared to SPI which consist of four wires. Here one wore is to sending the clk signal and other wire is for send the data signal.It is a widely used protocol for short distance communication. Max range of I2C is (400KHz-100MHz).
+
+
+## <h2 id="header-1">Working of I2C protocol</h2>
+
+It uses only 2 bi-directional open-drain lines for data communication called SDA and SCL. Both these lines are pulled high.
+
+Serial Data (SDA) – Transfer of data takes place through this pin.
+
+Serial Clock (SCL) – It carries the clock signal.
+
+![image](https://github.com/user-attachments/assets/d27d16c7-c941-4feb-b9c8-6e63952cf7bf)
+
+According to I2C protocols, the data line can not change when the clock line is high, it can change only when the clock line is low. The 2 lines are open drain, hence a pull-up resistor is required so that the lines are high since the devices on the I2C bus are active low. The data is transmitted in the form of packets which comprises 9 bits. The sequence of these bits are –
+
+Start Condition – 1 bit
+
+Slave Address – 8 bit
+
+Acknowledge – 1 bit
+
+
+## <h3 id="header-1">Start and Stop Conditions</h3>
+
+We need to send start signal and this signal(SDA) should go from high to low. while SCL should stay high. After sending start condition need to send adddress of peripheral which we wish to communicate the data. For write we need to apply 1 in address bus after 8-bit register. And to read we need to apply 0 in address bus after 8-bit register.
+
+![image](https://github.com/user-attachments/assets/c0827708-2a90-47bd-9a50-567355c466d1)
+
+Once we send an address now we  wait for the peripheral to send an acknowledgement. Acknowledgement will be 0 or 1. After recieving the acknowledgement we start sending data. Again wait for the acknowledgement then data go to adddress bus and  and then stop condition.
+
+Once we complete sending an address and recieve an acknowledgement from a peripheral will now pull our line to an high impedence state so that peripheral could now send the data on the same line(SDA)line . Then will wait for the data to send from peripheral.
+
+In reading condition acknowledgement is not required so will directly send the stop signal.
+
+
+## <h4 id="header-4">I2C Packet format</h4>
+
+In the I2C communication protocol, the data is transmitted in the form of packets. These packets are 9 bits long, out of which the first 8 bits are put in SDA line and the 9th bit is reserved for ACK/NACK i.e. Acknowledge or Not Acknowledge by the receiver. 
+
+ START condition plus address packet plus one more data packet plus STOP condition collectively form a complete Data transfer.
+
+
+## <h5 id="header-5">Design code for I2C</h5>
 ```verilog
 module eeprom_top
   (
